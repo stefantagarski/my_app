@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}Предикција на Македонска Берза{% endblock %}
+
+{% block content %}
+<div class="text-center mb-4">
+    <h1 class="mb-4">Денешна Берза</h1>
+    <p class="text-muted">Прегледајте ги денешните податоци за Македонска Берза.</p>
+</div>
+<div class="d-flex justify-content-center">
+    <button id="load-data-btn" class="btn">Прикажи Денешна Берза</button>
+</div>
+<div id="no-data-alert" class="alert alert-warning mt-4" style="display: none;">
+    Нема податоци за издавачи од денес.
+</div>
+<div class="table-responsive mt-4">
+    <table id="stock-table" class="table table-bordered table-hover text-center">
+        <thead></thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#load-data-btn').click(function () {
+            // Hide any previous alerts
+            $('#no-data-alert').hide();
+            $('#stock-table tbody').empty(); // Clear previous table data
+            $('#stock-table thead').empty(); // Clear previous table headers
+
+            // Fetch today's data
+            $.getJSON('/get_todays_data', function (data) {
+                if (data.length === 0) {
+                    // Show alert if no data is available
+                    $('#no-data-alert').show();
+                } else {
+                    // Populate table with data
+                    let tableHead = $('#stock-table thead');
+                    let tableBody = $('#stock-table tbody');
+
+                    const headers = [
+                        'Issuer Name',
+                        'Date',
+                        'Last Transaction Price',
+                        'Max.',
+                        'Min.',
+                        'Average Price',
+                        '% Change',
+                        'Quantity',
+                        'Turnover in BEST in Denars',
+                        'Total Turnover in Denars'
+                    ];
+                    const headerRow = $('<tr>').addClass('table-dark');
+                    headers.forEach(header => headerRow.append($('<th>').text(header)));
+                    tableHead.append(headerRow);
+
+                    data.forEach(row => {
+                        const change = parseFloat(row['% Change'].replace(',', '.'));
+                        const color = change < 0 ? 'red' : change > 0 ? 'green' : 'black';
+
+                        const tr = $('<tr>').css('color', color);
+                        headers.forEach(header => tr.append($('<td>').text(row[header])));
+                        tableBody.append(tr);
+                    });
+                }
+            }).fail(function () {
+                alert('Грешка при преземање на податоците. Обидете се повторно.');
+            });
+        });
+    });
+</script>
+{% endblock %}

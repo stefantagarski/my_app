@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block title %}About Us{% endblock %}
+
+{% block content %}
+<h1 class="text-center mb-4">За Нас</h1>
+<p class="lead text-center mb-5">
+    Ние сме тим од 3 студенти по софтверско инженерство и информациски системи при ФИНКИ - Скопје кои имаат за цел
+    да направат иновативен проект фокусиран на предвидување на движењето на цените на акциите на Македонската Берза.
+    Овој проект има за цел да користи напредни алгоритми и техники за анализа на податоци за да ги предвиди
+    трендовите на берзата и да обезбеди вредни сознанија за инвеститорите.
+</p>
+
+<h2 class="text-center mb-5">Соработници</h2>
+
+<div class="row row-cols-1 row-cols-md-3 g-4 justify-content-center">
+    <div class="col text-center">
+        <div class="card text-center shadow-sm">
+            <img src="{{ url_for('static', filename='/images/david.jpeg') }}" alt="Давид Христов"
+                 class="card-img-top rounded-circle"
+                 style="width: 150px; height: 150px; object-fit: cover; margin: 0 auto;">
+            <div class="card-body">
+                <h5 class="card-title">Давид Христов</h5>
+                <p>
+                    <a href="mailto:davidhristov10@gmail.com" class="text-muted">davidhristov10@gmail.com</a>
+                </p>
+                <div class="social-links">
+                    <a href="https://github.com/davidhristov59" target="_blank" title="GitHub">
+                        <i class="bi bi-github"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/david-hristov-0985a4176/" target="_blank" title="LinkedIn">
+                        <i class="bi bi-linkedin"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col text-center">
+        <div class="card text-center shadow-sm">
+            <img src="{{ url_for('static', filename='/images/stefan.jpeg') }}" alt="Стефан Тагарски"
+                 class="card-img-top rounded-circle"
+                 style="width: 150px; height: 150px; object-fit: cover; margin: 0 auto;">
+            <div class="card-body">
+                <h5 class="card-title">Стефан Тагарски</h5>
+                <p>
+                    <a href="mailto:stefantagarski@gmail.com" class="text-muted">stefantagarski@gmail.com</a>
+                </p>
+                <div class="social-links">
+                    <a href="https://github.com/stefantagarski" target="_blank" title="GitHub">
+                        <i class="bi bi-github"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/stefan-tagarski-942518265/" target="_blank" title="LinkedIn">
+                        <i class="bi bi-linkedin"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col text-center">
+        <div class="card text-center shadow-sm">
+            <img src="{{ url_for('static', filename='/images/nikola.jpeg') }}" alt="Никола Дулев"
+                 class="card-img-top rounded-circle"
+                 style="width: 150px; height: 150px; object-fit: cover; margin: 0 auto;">
+            <div class="card-body">
+                <h5 class="card-title">Никола Дулев</h5>
+                <p>
+                    <a href="mailto:nikoladulev13@gmail.com" class="text-muted">nikoladulev13@gmail.com</a>
+                </p>
+                <div class="social-links">
+                    <a href="https://github.com/dulev23" target="_blank" title="GitHub">
+                        <i class="bi bi-github"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/nikola-dulev/" target="_blank" title="LinkedIn">
+                        <i class="bi bi-linkedin"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

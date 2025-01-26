@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block title %}LSTM Прогноза на Цени{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+
+    <!-- Header Section -->
+    <div class="text-center mb-5">
+        <h1 class="display-6">LSTM Прогноза на Цени на Акции</h1>
+        <p class="lead text-muted">Изберете издавач и тип на прогноза за да добиете краткорочна или среднорочна прогноза на цените на акциите.</p>
+    </div>
+
+    <!-- Form Section -->
+    <form method="POST" class="mb-5 p-5 border rounded-3 shadow-lg bg-gradient-to-r from-indigo-200 via-blue-200 to-teal-200">
+        <h4 class="mb-4 text-center text-dark">Изберете Издавач</h4>
+
+        <div class="mb-4">
+            <select name="issuer" id="issuer" class="form-select form-select-lg form-control-lg shadow-sm">
+                <option value="" disabled selected>Изберете издавач</option>
+                {% for issuer in issuers %}
+                <option value="{{ issuer }}" {% if issuer == selected_issuer %}selected{% endif %}>
+                    {{ issuer }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-4">
+            <label for="prediction_type" class="text-dark">Изберете тип на прогноза:</label>
+            <select name="prediction_type" id="prediction_type" class="form-select form-select-lg form-control-lg shadow-sm">
+                <option value="short-term" {% if prediction_type == 'short-term' %}selected{% endif %}>Краткорочна</option>
+                <option value="medium-term" {% if prediction_type == 'medium-term' %}selected{% endif %}>Среднорочна</option>
+            </select>
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn  btn-secondary text-white shadow-sm hover:scale-105 transition-all duration-300">Добиј Прогноза</button>
+        </div>
+    </form>
+
+    <!-- Alerts for Missing Issuer -->
+    {% if missing_issuer %}
+    <div class="alert alert-danger text-center animate__animated animate__fadeIn" role="alert">
+        Изберете соодветен издавач.
+    </div>
+    {% endif %}
+
+    <!-- Prediction Results -->
+    {% if prediction %}
+    <div class="mb-5">
+        <div class="row justify-content-center align-items-center g-4">
+
+            <!-- Prediction Info Section -->
+            <div class="col-md-6 col-lg-4 text-start shadow-lg p-4 rounded-3">
+                <h2 class="mb-3" style="color: #2e8783">Прогноза за {{ selected_issuer }}:</h2>
+                <p><strong>Тип на прогноза:</strong> {{ prediction_type.capitalize() }}</p>
+
+                <h3 class="mt-4">Цени:</h3>
+                {% if prediction_type == 'short-term' %}
+                    <p>1 Недела: {{ prediction['1 Week'] }}</p>
+                    <p>1 Месец: {{ prediction['1 Month'] }}</p>
+                    <p>3 Месеци: {{ prediction['3 Months'] }}</p>
+                {% else %}
+                    <p>6 Месеци: {{ prediction['6 Months'] }}</p>
+                    <p>9 Месеци: {{ prediction['9 Months'] }}</p>
+                    <p>1 Година: {{ prediction['1 Year'] }}</p>
+                {% endif %}
+            </div>
+
+            <!-- Prediction Graph Section -->
+            <div class="col-md-6 col-lg-4 text-center shadow-lg p-4 rounded-3">
+                {% if prediction.graph %}
+                    <h3 style="color: #ff6f61" class="mb-3">Графикон на Прогноза на Цените:</h3>
+                    <img src="data:image/png;base64,{{ prediction['graph'] }}" alt="Графикон на Прогноза" class="img-fluid rounded shadow-sm">
+                {% else %}
+                    <p>Нема графикон поради недостиг на податоци.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <hr class="my-5">
+    <div class="text-center">
+        <h3 style="color: #2e8783">Што е LSTM?</h3>
+        <p><span style="color: #ff6f61"><u>LSTM (Long Short-Term Memory)</u></span> е тип на невронска мрежа која се користи за анализа на временски серији податоци и правење на прогнози, како на пример прогноза на цената на акции. Oваа техника овозможува точни прогнози на податоци кои се менуваат со време, како што се цените на акции.</p>
+    </div>
+
+</div>
+
+<script>
+    var selectedIssuer = "{{ selected_issuer }}";
+
+    // Check if selectedIssuer is empty
+    if (selectedIssuer === "") {
+        bootbox.alert({
+            message: 'Изберете издавач за да продолжите.',
+            backdrop: true,
+            centerVertical: true
+        });
+    }
+</script>
+
+{% endblock %}

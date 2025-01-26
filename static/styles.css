@@ -1,0 +1,270 @@
+/* General Styles */
+/* Global Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+}
+
+/* Hero Section Styling */
+h1.display-4 {
+    font-weight: 600;
+    color: #2e8783; /* Custom green for titles */
+}
+
+/* Card Customization */
+.card {
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Card Title Customization */
+.card-title {
+    color: #2e8783; /* Custom color for titles */
+    font-weight: 600;
+}
+
+/* Card Text Styling */
+.card-text {
+    font-size: 1.1rem;
+    color: #555; /* Darker color for text inside cards */
+}
+
+/* Sentiment Analysis Card */
+.card-body {
+    padding: 2rem;
+}
+
+/* Adding Space Between Cards */
+.card.mb-4 {
+    margin-bottom: 3rem;
+}
+
+/* Badge Styling */
+.badge {
+    font-weight: bold;
+    padding: 8px 15px;
+}
+
+/* Button Customization */
+.btn-lg {
+    padding: 15px 30px;
+    font-size: 1.25rem;
+    border-radius: 30px;
+}
+
+/* Issuer Dropdown */
+.form-select-lg {
+    font-size: 1.1rem;
+}
+
+/* Form Customization */
+form {
+    background-color: #f9f9f9;
+    border-radius: 15px;
+}
+
+/* Custom Text Styling for Sections */
+.fs-5 {
+    font-size: 1.2rem;
+}
+
+.text-muted {
+    color: #6c757d;
+}
+
+.text-primary {
+    color: #2e8783;
+}
+
+header {
+    background-color: #333;
+    padding: 20px;
+    color: #ffffff;
+    transition: background-color 0.3s ease;
+}
+
+.navbar {
+    font-style: italic;
+}
+
+.navbar-brand {
+   font-size: 22px;
+   text-transform: full-size-kana;
+    font-style: italic;
+    color: #ffffff;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.navbar-toggler {
+    border: none;
+    color: #ffffff;
+}
+
+.navbar-brand:hover {
+    color: #2e8783;
+}
+
+.navbar-nav .nav-item .nav-link {
+    transition: color 0.3s ease;
+    color: #ffffff; /* Ensure initial color */
+}
+
+.navbar-nav .nav-item .nav-link:hover {
+    color: #2e8783 !important; /* Hover effect */
+}
+
+.navbar-nav .nav-item .nav-link:active {
+    color: #ff6f61 !important; /* Active state */
+}
+
+.navbar-nav .nav-link {
+    color: #ffffff;
+    font-size: 16px;
+    margin-right: 20px;
+    transition: color 0.3s ease;
+}
+
+.navbar-toggler:hover {
+    color:  #2e8783;
+}
+
+
+#load-data-btn {
+    background-color: #2c2c2c;
+    color: #ffffff;
+    padding: 15px 40px;
+    font-size: 18px;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#load-data-btn:hover {
+    background-color: #2e8783;
+    transform: translateY(-2px);
+}
+
+.paragraph {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+}
+
+.contributors {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 330px;
+    padding: 20px;
+    text-align: center;
+    margin: 20px;
+    transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.profile-pic {
+    width: 100%;
+    border-radius: 50%;
+    margin-bottom: 15px;
+}
+
+.card h3 {
+    color: #333;
+    font-size: 1.4rem;
+}
+
+.email-link {
+    color: #ff6f61;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.email-link:hover {
+    color: #333;
+}
+
+.social-links a {
+    margin: 0 10px;
+    color: #ff6f61;
+    font-size: 1.5rem;
+    transition: color 0.3s ease;
+}
+
+.social-links a:hover {
+    color: #333;
+}
+
+footer {
+    background-color: #333;
+    color: #ffffff;
+    text-align: center;
+    padding: 15px 0;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+}
+
+footer p {
+    margin: 0;
+}
+
+/* Graphs Page Styles */
+.graph-img {
+    max-width: 100%;
+    border: 4px solid #333;
+    margin: 40px auto;
+    display: block;
+    border-radius: 8px;
+    transition: border-color 0.3s ease;
+}
+
+.graph-img:hover {
+    border-color: #ff6f61;
+}
+
+.go-back-btn {
+    background-color: #333;
+    color: #ffffff;
+    padding: 12px 30px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.go-back-btn:hover {
+    background-color: #ff6f61;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar-brand {
+        font-size: 20px;
+    }
+
+    #load-data-btn {
+        font-size: 1rem;
+        padding: 10px 20px;
+    }
+
+    .card {
+        width: 100%;
+    }
+
+    footer {
+        font-size: 0.8rem;
+    }
+}

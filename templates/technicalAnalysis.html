@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+
+{% block title %}Графикони{% endblock %}
+
+{% block content %}
+<h1 class="text-center mb-4">Техничка Анализа за {{ issuer }}</h1>
+
+<!-- Display form for selecting issuer -->
+<form method="POST" id="issuerForm" class="text-center">
+    <label for="issuer">Избери издавач:</label>
+    <select name="issuer" id="issuer">
+        {% for issuer_name in issuers %}
+        <option value="{{ issuer_name }}" {% if issuer_name== issuer %} selected {% endif %}>
+            {{ issuer_name }}
+        </option>
+        {% endfor %}
+    </select>
+    <button type="submit" class="btn btn-secondary">Генерирај Граф</button>
+</form>
+
+<!-- Display graph and indicators table in a single row -->
+<div class="row mt-5">
+    <div class="col-md-6 text-center">
+        <!-- Display graph -->
+        {% if graph_base64 %}
+        <h2 class="mb-4">Графикон на индикаторите за {{ issuer }}</h2>
+        <img src="data:image/png;base64,{{ graph_base64 }}" alt="Technical Analysis Graph" class="img-fluid">
+        {% else %}
+        <p class="text-muted">Нема достапен графикон.</p>
+        {% endif %}
+    </div>
+
+    <div class="col-md-6">
+        <!-- Display indicators table -->
+        {% if indicators %}
+        <table style="margin-top: 61px; margin-left: 30px;" class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Индикатор</th>
+                <th>Вредност</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>SMA 20</td>
+                <td>{{ indicators.SMA_20 }}</td>
+            </tr>
+            <tr>
+                <td>SMA 50</td>
+                <td>{{ indicators.SMA_50 }}</td>
+            </tr>
+            <tr>
+                <td>EMA 20</td>
+                <td>{{ indicators.EMA_20 }}</td>
+            </tr>
+            <tr>
+                <td>EMA 50</td>
+                <td>{{ indicators.EMA_50 }}</td>
+            </tr>
+            <tr>
+                <td>RSI</td>
+                <td>{{ indicators.RSI }}</td>
+            </tr>
+            <tr>
+                <td>MACD</td>
+                <td>{{ indicators.MACD }}</td>
+            </tr>
+            <tr>
+                <td>Горен Болингер Бенд</td>
+                <td>{{ indicators.Bollinger_Upper }}</td>
+            </tr>
+            <tr>
+                <td>Долен Болингер Бенд</td>
+                <td>{{ indicators.Bollinger_Lower }}</td>
+            </tr>
+            </tbody>
+        </table>
+        {% endif %}
+    </div>
+</div>
+
+
+<div class="mt-5">
+    <h3>Предвидени Цени за {{ issuer }}</h3>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Индикатор</th>
+            <th>1 Ден</th>
+            <th>1 Недела</th>
+            <th>1 Месец</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for indicator, values in {
+            'SMA 20': 'SMA_20',
+            'SMA 50': 'SMA_50',
+            'EMA 20': 'EMA_20',
+            'EMA 50': 'EMA_50',
+            'RSI': 'RSI',
+            'MACD': 'MACD',
+            'Горен Болингер Бенд': 'Bollinger_Upper',
+            'Долен Болингер Бенд': 'Bollinger_Lower'
+        }.items() %}
+        <tr>
+            <td>{{ indicator }}</td>
+            <td>{{ predicted_prices.get('1_day', {}).get(values, 'Недостиг на податоци') if not predicted_prices.get('1_day', {}).get(values) in [None, 'NaN'] else 'Недостиг на податоци' }}</td>
+            <td>{{ predicted_prices.get('1_week', {}).get(values, 'Недостиг на податоци') if not predicted_prices.get('1_week', {}).get(values) in [None, 'NaN'] else 'Недостиг на податоци' }}</td>
+            <td>{{ predicted_prices.get('1_month', {}).get(values, 'Недостиг на податоци') if not predicted_prices.get('1_month', {}).get(values) in [None, 'NaN'] else 'Недостиг на податоци' }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        let cells = document.querySelectorAll('table tbody td');
+
+        cells.forEach(function (cell) {
+            let content = cell.textContent.trim().toLowerCase();
+            if (content === 'nan' || content === 'undefined' || content === '') {
+                cell.textContent = 'Недостиг на податоци';
+            }
+        });
+    });
+</script>
+
+
+
+
+<div class="mt-5">
+    <h3>Објаснувања на Индикаторите:</h3>
+    <p><strong style="color: #2e8783">SMA (Simple Moving Average):</strong> SMA е просек од збир на вредности над дефиниран број на периоди.
+    </p>
+    <p><strong style="color: #2e8783">EMA (Exponential Moving Average):</strong> ЕМА им дава поголема тежина на неодамнешните цени.</p>
+    <p><strong style="color: #2e8783">RSI (Relative Strength Index):</strong> RSI помага да се идентификуваат условите за прекупување или
+        препродажба.</p>
+    <p><strong style="color: #2e8783">MACD (Moving Average Convergence Divergence):</strong> MACD е технички индикатор што се користи
+        за да се утврди јачината и насоката на трендот.</p>
+    <p><strong style="color: #2e8783">Bollinger Bands:</strong> Болингер бендовите се користат за предвидување на нестабилноста и прекумерното
+        купување/препродажба.</p>
+</div>
+{% endblock %}
